@@ -1,0 +1,13 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+  - selector: api.Manager.CreateStudy
+    post: /api/Manager/CreateStudy
+    body: "*"
+  
+  - selector: api.Manager.StopStudy
+    post: /api/Manager/CreateStudy
+    body: "*"
+    
