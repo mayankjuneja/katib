@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: vizier-suggestion-hyperband
-        image: katib/suggestion-hyperband
+        image: registry.ingress.ktensorgym.us-east-1.k8s.lyft.net/katib/suggestion-hyperband:0.0.1
         ports:
         - name: api
           containerPort: 6789

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: vizier-suggestion-grid
-        image: katib/suggestion-grid
+        image: registry.ingress.ktensorgym.us-east-1.k8s.lyft.net/katib/suggestion-grid:0.0.1
         ports:
         - name: api
           containerPort: 6789
