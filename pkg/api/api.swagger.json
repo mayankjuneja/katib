@@ -345,7 +345,7 @@
         ]
       }
     },
-    "/api/Manager/GetTrials/{study_id}/{trial_id}/{worker_id}": {
+    "/api/Manager/GetWorkers": {
       "get": {
         "operationId": "GetWorkers",
         "responses": {
@@ -359,20 +359,20 @@
         "parameters": [
           {
             "name": "study_id",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "required": false,
             "type": "string"
           },
           {
             "name": "trial_id",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "required": false,
             "type": "string"
           },
           {
             "name": "worker_id",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],

@@ -51,7 +51,7 @@ service Manager {
     };
     rpc GetWorkers(GetWorkersRequest) returns (GetWorkersReply){
         option (google.api.http) = {
-            get: "/api/Manager/GetTrials/{study_id}/{trial_id}/{worker_id}"
+            get: "/api/Manager/GetWorkers"
         };
     };
     rpc GetSuggestions(GetSuggestionsRequest) returns (GetSuggestionsReply){
