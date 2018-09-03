@@ -1338,6 +1338,13 @@
           "type": "integer",
           "format": "int32"
         },
+        "cpu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "memory": {
+          "type": "string"
+        },
         "scheduler": {
           "type": "string"
         },

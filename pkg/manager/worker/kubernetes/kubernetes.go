@@ -122,15 +122,28 @@ func (d *KubernetesWorkerInterface) genJobManifest(wid string, conf *api.WorkerC
 			}
 		}
 	}
+
+	cpuReq, err := resource.ParseQuantity(strconv.Itoa(int(conf.Cpu)))
+	if err != nil {
+		return nil, err
+	}
+	memoryReq, err := resource.ParseQuantity(conf.Memory)
+	if err != nil {
+		return nil, err
+	}
+
+	template.Spec.Template.Spec.Containers[0].Resources = apiv1.ResourceRequirements{
+			Limits: apiv1.ResourceList{
+				"cpu": cpuReq,
+				"memory": memoryReq,
+		},
+	}
 	if conf.Gpu > 0 {
 		gpuReq, err := resource.ParseQuantity(strconv.Itoa(int(conf.Gpu)))
 		if err != nil {
 			return nil, err
 		}
-		template.Spec.Template.Spec.Containers[0].Resources =
-			apiv1.ResourceRequirements{
-				Limits: apiv1.ResourceList{"nvidia.com/gpu": gpuReq},
-			}
+		template.Spec.Template.Spec.Containers[0].Resources.Limits["nvidia.com/gpu"] = gpuReq
 	}
 	return template, nil
 }

@@ -257,11 +257,13 @@ message WorkerConfig {
     string image = 1;
     repeated string command =  2;
     int32 gpu = 3;
-    string scheduler = 4;
-    MountConf mount = 5;
-    string pull_secret = 6;
-    map<string, string> annotations = 7;
-    repeated Toleration tolerations = 8;
+    int32 cpu = 4;
+    string memory = 5;
+    string scheduler = 6;
+    MountConf mount = 7;
+    string pull_secret = 8;
+    map<string, string> annotations = 9;
+    repeated Toleration tolerations = 10;
 }
 
 message Worker {
