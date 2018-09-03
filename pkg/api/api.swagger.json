@@ -1250,6 +1250,23 @@
         }
       }
     },
+    "apiToleration": {
+      "type": "object",
+      "properties": {
+        "effect": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "apiTrial": {
       "type": "object",
       "properties": {
@@ -1329,6 +1346,18 @@
         },
         "pull_secret": {
           "type": "string"
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "tolerations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiToleration"
+          }
         }
       }
     }

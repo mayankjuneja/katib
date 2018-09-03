@@ -231,6 +231,13 @@ message MountConf {
    string path = 2;
 }
 
+message Toleration {
+    string effect = 1;
+    string key = 2;
+    string operator = 3;
+    string value = 4;
+}
+
 message StudyOverview {
     string name = 1;
     string owner  = 2;
@@ -253,6 +260,8 @@ message WorkerConfig {
     string scheduler = 4;
     MountConf mount = 5;
     string pull_secret = 6;
+    map<string, string> annotations = 7;
+    repeated Toleration tolerations = 8;
 }
 
 message Worker {

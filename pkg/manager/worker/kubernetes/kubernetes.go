@@ -84,6 +84,22 @@ func (d *KubernetesWorkerInterface) genJobManifest(wid string, conf *api.WorkerC
 			},
 		},
 	}
+	if len(conf.Annotations) != 0 {
+		template.Spec.Template.ObjectMeta.Annotations = conf.Annotations;
+	}
+
+	if len(conf.Tolerations) > 0 {
+		tolerations := []apiv1.Toleration{};
+		for i := 0; i<len(conf.Tolerations); i++{
+			tolerations = append(tolerations, apiv1.Toleration{
+				Key: conf.Tolerations[i].Key,
+				Operator: apiv1.TolerationOperator(conf.Tolerations[i].Operator),
+				Value: conf.Tolerations[i].Value,
+				Effect: apiv1.TaintEffect(conf.Tolerations[i].Effect),
+			})
+		}
+		template.Spec.Template.Spec.Tolerations = tolerations;
+	}
 
 	// Specified pvc is mounted to both PS and Worker Pods
 	if conf.Mount != nil {
