@@ -29,7 +29,7 @@ func (s *GridSuggestService) allocInt(min int, max int, reqnum int, step int) []
 		step = 1
 	}
 	if reqnum == 0 {
-		reqnum = (max - min + 1) / step
+		reqnum = (max - min + step) / step
 	}
 	ret := make([]string, reqnum)
 	if reqnum == 1 {
@@ -47,7 +47,7 @@ func (s *GridSuggestService) allocFloat(min float64, max float64, reqnum int, st
 		step = 1.0
 	}
 	if reqnum == 0 {
-		reqnum = int(math.Floor((max - min + 1) / step))
+		reqnum = int(math.Floor((max - min + step) / step))
 	}
 	ret := make([]string, reqnum)
 	if reqnum == 1 {
@@ -117,6 +117,7 @@ func (s *GridSuggestService) purseSuggestParam(suggestParam []*api.SuggestionPar
 }
 func (s *GridSuggestService) genGrids(studyId string, pcs []*api.ParameterConfig, df int, glist map[string]int) [][]*api.Parameter {
 	var pg [][]string
+	var grid []string
 	var holenum = 1
 	gcl := make([]int, len(pcs))
 	for i, pc := range pcs {
@@ -129,20 +130,22 @@ func (s *GridSuggestService) genGrids(studyId string, pcs []*api.ParameterConfig
 			imin, _ := strconv.Atoi(pc.Feasible.Min)
 			imax, _ := strconv.Atoi(pc.Feasible.Max)
 			istep, _ := strconv.Atoi(pc.Feasible.Step)
-
-			pg = append(pg, s.allocInt(imin, imax, gc, istep))
+			grid = s.allocInt(imin, imax, gc, istep)
+			pg = append(pg, grid)
 		case api.ParameterType_DOUBLE:
 			dmin, _ := strconv.ParseFloat(pc.Feasible.Min, 64)
 			dmax, _ := strconv.ParseFloat(pc.Feasible.Max, 64)
 			dstep, _ := strconv.ParseFloat(pc.Feasible.Step, 64)
-			pg = append(pg, s.allocFloat(dmin, dmax, gc, dstep))
+			grid = s.allocFloat(dmin, dmax, gc, dstep)
+			pg = append(pg, grid)
 		case api.ParameterType_CATEGORICAL:
 			if (gc == 0) {
 				gc = len(pc.Feasible.List);
 			}
-			pg = append(pg, s.allocCat(pc.Feasible.List, gc))
+			grid = s.allocCat(pc.Feasible.List, gc)
+			pg = append(pg, grid)
 		}
-		holenum *= gc
+		holenum *= len(grid)
 		gcl[i] = gc
 
 	}
