@@ -171,6 +171,7 @@ message FeasibleSpace {
     string max = 1;
     string min = 2;
     repeated string list = 3;
+    string step = 4;
 }
 
 message ParameterConfig {
